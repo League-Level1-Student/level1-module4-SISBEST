@@ -4,47 +4,75 @@
  */
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /* 1. Download the JavaZoom jar from here: http://bit.ly/javazoom
  * 2. Right click your project and add it as an External JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
-
+public class Jukebox implements Runnable, ActionListener {
+	Song ybb = new Song("YBB.mp3");
+    Song wcn = new Song("WCN.mp3");
+    Song ikh = new Song("IKH.mp3");
+    JButton back = new JButton("You'll Be Back (Act I)");
+    JButton next = new JButton("What Comes Next? (Act I)");
+    JButton him = new JButton("I Know Him (Act II)");
+    
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Jukebox());
 	}
 
            public void run() {
-
-		// 3. Find an mp3 on your computer or on the Internet.
-		// 4. Create a Song
-
-		// 5. Play the Song
-
-		/*
-		 * 6. Create a user interface for your Jukebox so that the user can to
-		 * choose which song to play. You can use can use a different button for
-		 * each song, or a picture of the album cover. When the button or album
-		 * cover is clicked, stop the currently playing song, and play the one
-		 * that was selected.
-		 */
+        JFrame f = new JFrame("Jukebox");
+        JPanel p = new JPanel();
+        back.addActionListener(this);
+        next.addActionListener(this);
+        him.addActionListener(this);
+        p.add(him);
+        p.add(next);
+        p.add(back);
+        f.add(p);
+        f.pack();
+        f.setVisible(true);
+		
           }
 	/* Use this method to add album covers to your Panel. */
 	private JLabel loadImage(String fileName) {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton bp = (JButton) e.getSource();
+		if(bp == back){
+			ybb.stop();
+			ybb.play();
+			wcn.stop();
+			ikh.stop();
+		}
+		if(bp == next){
+			wcn.stop();
+			wcn.play();
+			ybb.stop();
+			ikh.stop();
+		}
+		if(bp == him){
+			ikh.stop();
+			ikh.play();
+			ybb.stop();
+			wcn.stop();
+		}
+		
 	}
 
 }
