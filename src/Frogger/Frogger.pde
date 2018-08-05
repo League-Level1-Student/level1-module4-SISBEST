@@ -1,10 +1,10 @@
 int frogX;
 int frogY;
 int hop;
- Car c1 = new Car((int) random(400), (int) random(400), (int) random(25, 30), (int) random(25));
+ Car c1 = new Car((int) random(400), (int) random(400), (int) random(25, 30), (int) random(100, 200));
  Car c2 = new Car((int) random(400), (int) random(400), (int) random(25, 30), (int) random(25));
  Car c3 = new Car((int) random(400), (int) random(100), (int) random(25, 30), (int) random(25));
- Car c4 = new Car((int) random(400), (int) random(100), (int) random(25, 30), (int) random(25));
+ Car c4 = new Car((int) random(400), (int) random(100), (int) random(25, 30), (int) random(100, 300));
  Car c5 = new Car((int) random(400), (int) random(100), (int) random(25, 30), (int) random(25));
 void setup(){
  size(400,400);
@@ -19,6 +19,29 @@ void draw(){
  c3.display();
  c4.display();
  c5.display();
+ c3.movel();
+ c4.mover();
+ c2.movel();
+ boolean i1 = intersects(c1);
+ boolean i2 = intersects(c2);
+ boolean i3 = intersects(c3);
+ boolean i4 = intersects(c4);
+ boolean i5 = intersects(c5);
+ if(i1 = true){
+   exit();
+ }
+ if(i2 = true){
+   exit();
+ }
+ if(i3 = true){
+   exit();
+ }
+ if(i4 = true){
+   exit();
+ }
+ if(i5 = true){
+   exit();
+ }
 }
 void keyPressed()
 {
@@ -38,7 +61,16 @@ void keyPressed()
             else if(keyCode == LEFT)
             {
                   frogX--;
-            }
+            }}
+      }
+   boolean intersects(Car car) {
+      if ((frogY > car.cy && frogY < car.cy+50) && (frogX > car.cx && frogX < car.cx+car.size))
+      {
+             return true;
+      }
+      else 
+      {
+             return false;
       }
 }
 
@@ -57,5 +89,16 @@ class Car{
       fill(0,255,0);
       rect(cx , cy, size, 50);
 }
-
+void movel(){
+ cx += speed;
+ if (cx > width){
+   cx = 0;
+ }
+}
+void mover(){
+ cx -= speed; 
+ if (cx > width){
+   cx = 0;
+ }
+}
 }
